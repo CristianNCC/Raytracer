@@ -4,7 +4,9 @@
 #include <fstream>
 #include <string>
 
-class cOutputRedirect
+#include "glm/vec3.hpp"
+
+class cOutputRedirect final
 {
 public:
 
@@ -24,4 +26,10 @@ protected:
 private:
     std::ofstream   m_outputStream;
     std::streambuf* m_previousStreamBuffer = nullptr;
+};
+
+class cUtils final
+{
+public:
+    static void WriteColorToOut(const glm::vec3& color);
 };

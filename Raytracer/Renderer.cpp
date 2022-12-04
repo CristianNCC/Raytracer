@@ -9,32 +9,25 @@ void cRenderer::WriteImage() const
 {
     cOutputRedirect coutRedirectToFile(m_outputImage);
 
-    const int imageWidth = 256;
-    const int imageHeight = 256;
-
     std::cout << "P3" << std::endl
-        << imageWidth << ' ' << imageHeight << std::endl
+        << m_imageWidth << ' ' << m_imageHeight << std::endl
         << 255 << std::endl;
 
-    for (int j = imageHeight - 1; j >= 0; --j)
+    for (int32_t j = m_imageHeight - 1; j >= 0; --j)
     {
         coutRedirectToFile.PrintInPreviousStream(std::format("Scanlines remaining: {}.", j));
-        for (int i = 0; i < imageWidth; ++i)
+        for (int32_t i = 0; i < m_imageWidth; ++i)
         {
-            auto r = float(i) / (imageWidth - 1);
-            auto g = float(j) / (imageHeight - 1);
-            auto b = 0.25;
+            float r = static_cast<float>(i) / (m_imageWidth - 1);
+            float g = static_cast<float>(j) / (m_imageHeight - 1);
+            float b = 0.25f;
 
-            int ir = static_cast<int>(256.f * r);
-            int ig = static_cast<int>(256.f * g);
-            int ib = static_cast<int>(256.f * b);
-
-            std::cout << ir << ' ' << ig << ' ' << ib << std::endl;
+            cUtils::WriteColorToOut(glm::vec3(r, g, b));
         }
     }
 }
 
-const std::string& cRenderer::GetOutputImage()
+const std::string& cRenderer::GetOutputImagePath()
 {
     return m_outputImage;
 }

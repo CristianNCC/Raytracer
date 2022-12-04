@@ -24,3 +24,10 @@ void cOutputRedirect::PrintInPreviousStream(const std::string& message) const
     std::cout << message << std::endl;
     std::cout.rdbuf(m_outputStream.rdbuf());
 }
+
+void cUtils::WriteColorToOut(const glm::vec3& color)
+{
+    std::cout << static_cast<int32_t>(256.f * color.r) << ' '
+              << static_cast<int32_t>(256.f * color.g) << ' '
+              << static_cast<int32_t>(256.f * color.b) << std::endl;
+}
